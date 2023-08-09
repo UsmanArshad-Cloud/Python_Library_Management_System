@@ -75,8 +75,7 @@ class UserManager:
         for user in users_list:
             if user.Username == username:
                 return user
-        print("User not Found!!")
-
+        raise LookupError("User not found")
     @staticmethod
     def get_user_info(user):
         user.Username = input("Username:")

@@ -9,7 +9,7 @@ class SimpleUser(User):
         match user_input:
             case 1:
                 Id = int(input("Enter the Id of the Book you want to search"))
-                book, index = library.search_book_by_id(Id)
+                book = library.search_book_by_id(Id)
                 if book:
                     print(f"{book}")
                 else:

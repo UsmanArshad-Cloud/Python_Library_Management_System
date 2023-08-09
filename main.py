@@ -32,6 +32,6 @@ while not isUserSignedIn:
             curr_user = Admin() if curr_user.Username == "Admin" else SimpleUser()
             curr_user.print_options()
             user_input = int(input("Enter Your Option:"))
+            curr_user.handle_input(user_input, library)
         except ValueError:
             print("Enter a Valid Integer")
-        curr_user.handle_input(user_input, library)
