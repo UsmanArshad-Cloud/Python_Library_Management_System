@@ -1,5 +1,6 @@
 from User.User import User
 from User.UserManager import UserManager
+from Library.Library import Library
 
 
 class Admin(User):
@@ -26,49 +27,37 @@ class Admin(User):
                     book = library.input_book()
                     library.addbook(book)
                 case 2:
-                    Id = int(input("Enter the Id of the Book you want to update:"))
+                    Id = library.input_book_id("Update")
                     book = library.search_book_by_id(Id)
                     updated_user = library.get_updated_book_data(book)
                     library.update_book(Id, updated_user)
                 case 3:
-                    Id = int(input("Enter the Id of the Book you want to know about:"))
+                    Id = Library.input_book_id("Read")
                     book = library.search_book_by_id(Id)
                     print(book) if book else print("No Book against this id")
                 case 4:
-                    Id = int(input("Enter the Id of the Book you want to delete:"))
-                    book = library.search_book_by_id(Id)
+                    Id = Library.input_book_id("Delete")
                     library.remove_book(Id)
                 case 5:
-                    Borrower_Username = input("Enter the Borrower's UserName:")
-                    Book_Id = int(input("Enter the Book's Id:"))
-                    curr_lib = library
-                    book = curr_lib.search_book_by_id(Book_Id)
+                    Borrower_Username, Book_Id = Library.input_borrower()
+                    book = library.search_book_by_id(Book_Id)
                     user = UserManager.get_user_from_db(Borrower_Username)
-                    if book and user:
-                        curr_lib.assign_book(book, user)
-                    else:
-                        print("Entered Book or User doesn't exists")
+                    library.assign_book(book, user)
                 case 6:
-                    Borrower_Username = input("Enter the Borrower's UserName:")
-                    Book_Id = int(input("Enter the Book's Id:"))
-                    curr_lib = library
-                    book = curr_lib.search_book_by_id(Book_Id)
+                    Borrower_Username, Book_Id = Library.input_borrower()
+                    book = library.search_book_by_id(Book_Id)
                     user = UserManager.get_user_from_db(Borrower_Username)
-                    curr_lib.return_book(book, user)
+                    library.return_book(book, user)
                 case 7:
-                    curr_lib = library
-                    assigned_books = curr_lib.get_all_assigned_books()
+                    assigned_books = library.get_all_assigned_books()
                     for book in assigned_books:
                         print(book)
                 case 8:
-                    curr_lib = library
-                    not_returned_book = curr_lib.get_all_non_returned_books()
+                    not_returned_book = library.get_all_non_returned_books()
                     for book in not_returned_book:
                         print(book)
-                    pass
                 case _:
                     print("Good Bye!!! Admin")
                     return
         except Exception as e:
-            print("Error Occurred", e)
-
+            print("Error Occurred:", e)

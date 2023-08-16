@@ -17,7 +17,7 @@ while not isUserSignedIn:
             user_input = int(input("Enter Your Option:"))
             break
         except ValueError:
-            print("Input must be a proper Input")
+            print("Input must be a proper Integer")
     while not isUserSignedIn:
         if user_input == 1:
             isUserSignedIn, curr_user = user_mgr.sign_in()
